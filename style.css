@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+input,
+button {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+#panel {
+  display: none;
+}

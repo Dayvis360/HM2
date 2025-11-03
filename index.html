@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honey Money 🐝</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1> Honey Money</h1>
+
+  <div id="login">
+    <h3>Ingresá tu nombre único</h3>
+    <input id="nombre" placeholder="Tu nombre">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+
+  <div id="panel">
+    <h2 id="usuario"></h2>
+    <p>Saldo: <span id="saldo">0</span></p>
+
+    <h3>Enviar dinero</h3>
+    <input id="receptor" placeholder="Nombre del receptor">
+    <input id="monto" type="number" placeholder="Monto">
+    <button onclick="transferir()">Transferir</button>
+
+    <h3>Historial</h3>
+    <div id="historial"></div>
+
+    <button onclick="salir()">Cerrar sesión</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
