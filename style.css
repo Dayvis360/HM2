@@ -1,17 +1,142 @@
+/* --- ESTILOS GENERALES --- */
 body {
-  font-family: sans-serif;
-  max-width: 400px;
-  margin: 2rem auto;
+  font-family: "Poppins", sans-serif;
+  background-color: #fff7e1; /* fondo cálido */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* --- TÍTULO PRINCIPAL --- */
+h1 {
+  color: #5c4002;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* --- CONTENEDORES DE LOGIN Y PANEL --- */
+#login,
+#panel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 2.8rem 3rem;
+  width: 100%;
+  max-width: 460px;
+  box-sizing: border-box;
   text-align: center;
 }
 
-input,
-button {
-  padding: 0.5rem;
-  margin: 0.5rem;
-  width: 100%;
-}
-
+/* Al inicio, solo se muestra el login */
 #panel {
   display: none;
+}
+
+/* --- TÍTULOS SECUNDARIOS --- */
+h2, h3 {
+  color: #5c4002;
+  margin-bottom: 0.8rem;
+}
+
+/* --- TEXTOS Y PÁRRAFOS --- */
+p {
+  color: #7a5a10;
+  margin-bottom: 1rem;
+}
+
+/* --- INPUTS --- */
+input {
+  width: 92%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f3d56c;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fffdf6;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #f0b018;
+  box-shadow: 0 0 5px rgba(240, 191, 58, 0.4);
+}
+
+/* --- BOTONES --- */
+button {
+  width: 92%;
+  background-color: #f7c948;
+  color: #5c4002;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-bottom: 0.8rem;
+}
+
+button:hover {
+  background-color: #f0b018;
+  transform: scale(1.02);
+}
+
+/* --- HISTORIAL --- */
+#historial {
+  background-color: #fffdf6;
+  border: 1px solid #f3d56c;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  color: #5c4002;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  #login,
+  #panel {
+    padding: 2.2rem;
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  #login,
+  #panel {
+    padding: 1.8rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  p, h2, h3 {
+    font-size: 0.9rem;
+  }
+
+  input,
+  button {
+    font-size: 0.9rem;
+    width: 100%;
+  }
 }
