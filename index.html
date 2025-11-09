@@ -30,7 +30,31 @@
     <button onclick="depositar()">Depositar</button>
 
     <h3>Historial</h3>
-    <div id="historial"></div>
+    <div class="historial-controls">
+      <label for="filtroTipo">Mostrar:</label>
+      <select id="filtroTipo">
+        <option value="todo">Todo</option>
+        <option value="transferencia">Transferencias</option>
+        <option value="deposito">Depósitos</option>
+      </select>
+    </div>
+
+    <div id="historial" class="historial-table-container">
+      <table id="historialTable">
+        <thead>
+          <tr>
+            <th>Emisor</th>
+            <th>Receptor</th>
+            <th>Monto</th>
+            <th>Tipo</th>
+            <th>Dirección</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="historialBody">
+        </tbody>
+      </table>
+    </div>
 
     <button onclick="salir()">Cerrar sesión</button>
   </div>
