@@ -83,7 +83,7 @@ async function transferir() {
       tipo: 'transferencia'
     }]);
 
-  alert("Transferencia exitosa ✅");
+  alert("Transferencia exitosa ");
   document.getElementById('receptor').value = '';
   document.getElementById('monto').value = '';
   await actualizarSaldo();
@@ -117,7 +117,7 @@ async function depositar() {
   document.getElementById('montoDeposito').value = '';
   await actualizarSaldo();
   await cargarHistorial();
-  alert('Depósito realizado ✅');
+  alert('Depósito realizado ');
 }
 
 
