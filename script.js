@@ -9,14 +9,14 @@ async function entrar() {
   const nombre = document.getElementById('nombre').value.trim();
   if (!nombre) return alert("Ingresá un nombre");
 
-  // Buscar usuario existente
+  // Buscar usuario
   let { data: user } = await db
     .from('usuarios')
     .select('*')
     .eq('nombre', nombre)
     .single();
 
-  // Si no existe, crear nuevo
+  // Si no existe, crear
   if (!user) {
     const { data, error } = await db
       .from('usuarios')
@@ -62,7 +62,6 @@ async function transferir() {
   if (!rec) return alert("El receptor no existe");
   if (emisor.saldo < monto) return alert("Saldo insuficiente");
 
-  // Actualizar saldos
   await db.from('usuarios')
     .update({ saldo: emisor.saldo - monto })
     .eq('nombre', usuarioActual);
@@ -70,11 +69,13 @@ async function transferir() {
     .update({ saldo: rec.saldo + monto })
     .eq('nombre', receptor);
 
-  // Registrar ambas transacciones (una para el emisor, otra para el receptor)
-  await db.from('transacciones').insert([
-    { emisor: usuarioActual, receptor, monto, tipo: 'transferido' },
-    { emisor: receptor, receptor: usuarioActual, monto, tipo: 'recibido' }
-  ]);
+  await db.from('transacciones')
+    .insert([{ 
+      emisor: usuarioActual, 
+      receptor, 
+      monto,
+      tipo: 'transferencia'
+    }]);
 
   alert("Transferencia exitosa ✅");
   document.getElementById('receptor').value = '';
@@ -82,7 +83,6 @@ async function transferir() {
   await actualizarSaldo();
   await cargarHistorial();
 }
-
 async function depositar() {
   const montoDeposito = Number(document.getElementById('montoDeposito').value);
   if (isNaN(montoDeposito) || montoDeposito <= 0) return alert('Ingresá un monto válido');
@@ -91,14 +91,19 @@ async function depositar() {
     .from('usuarios').select('*').eq('nombre', usuarioActual).single();
   if (error || !user) return alert('Usuario no encontrado');
 
-  // Sumar saldo al usuario actual
+  // Actualizar solo al usuario actual (filtrar por nombre)
   await db.from('usuarios')
     .update({ saldo: user.saldo + montoDeposito })
     .eq('nombre', usuarioActual);
 
-  // Registrar depósito con tipo
+  // Registrar el depósito en la tabla de transacciones
   await db.from('transacciones')
-    .insert([{ emisor: 'DEPOSITO', receptor: usuarioActual, monto: montoDeposito, tipo: 'deposito' }]);
+    .insert([{ 
+      emisor: usuarioActual, 
+      receptor: usuarioActual, 
+      monto: montoDeposito,
+      tipo: 'deposito'
+    }]);
 
   document.getElementById('montoDeposito').value = '';
   await actualizarSaldo();
@@ -110,33 +115,19 @@ async function cargarHistorial() {
   const { data } = await db
     .from('transacciones')
     .select('*')
-    .or(`emisor.eq.${usuarioActual},receptor.eq.${usuarioActual}`)
+    .or('emisor.eq.' + usuarioActual + ',receptor.eq.' + usuarioActual)
     .order('fecha', { ascending: false });
 
-  if (!data || data.length === 0) {
-    document.getElementById('historial').innerHTML = "Sin movimientos";
-    return;
-  }
-
-  // Generar texto legible según el tipo
   const h = data.map(t => {
     if (t.tipo === 'deposito') {
-      return `<p> Depósito : +$${t.monto}</p>`;
-    } else if (t.tipo === 'transferido') {
-      return `<p> Transferencia enviada a ${t.receptor}: -$${t.monto}</p>`;
-    } else if (t.tipo === 'recibido') {
-      return `<p> Transferencia recibida de ${t.emisor}: +$${t.monto}</p>`;
-    } else {
-      // por compatibilidad con registros viejos sin tipo
-      if (t.emisor === 'DEPOSITO')
-        return `<p> Depósito recibido: +$${t.monto}</p>`;
-      if (t.emisor === usuarioActual)
-        return `<p> Transferencia enviada a ${t.receptor}: -$${t.monto}</p>`;
-      return `<p> Transferencia recibida de ${t.emisor}: +$${t.monto}</p>`;
+      return `<p>Deposito de: $${t.monto} realizado</p>`;
     }
+    const esEmisor = t.emisor === usuarioActual;
+    const tipo = esEmisor ? 'enviado' : 'recibido';
+    const otroUsuario = esEmisor ? t.receptor : t.emisor;
+    return `<p>${tipo}: $${t.monto} ${esEmisor ? 'a' : 'de'} ${otroUsuario}</p>`;
   }).join('');
-
-  document.getElementById('historial').innerHTML = h;
+  document.getElementById('historial').innerHTML = h || "Sin movimientos";
 }
 
 function salir() {
@@ -146,6 +137,6 @@ function salir() {
   document.getElementById('login').style.display = 'block';
 }
 
-// Restaurar sesión si ya estaba logueado
+// Restaurar sesión
 const guardado = localStorage.getItem('usuario');
 if (guardado) { usuarioActual = guardado; mostrarPanel(); }
