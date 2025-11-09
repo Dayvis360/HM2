@@ -9,14 +9,14 @@ async function entrar() {
   const nombre = document.getElementById('nombre').value.trim();
   if (!nombre) return alert("Ingresá un nombre");
 
-  // Buscar usuario
+  // Buscar usuario existente
   let { data: user } = await db
     .from('usuarios')
     .select('*')
     .eq('nombre', nombre)
     .single();
 
-  // Si no existe, crear
+  // Si no existe, crear nuevo
   if (!user) {
     const { data, error } = await db
       .from('usuarios')
@@ -62,6 +62,7 @@ async function transferir() {
   if (!rec) return alert("El receptor no existe");
   if (emisor.saldo < monto) return alert("Saldo insuficiente");
 
+  // Actualizar saldos
   await db.from('usuarios')
     .update({ saldo: emisor.saldo - monto })
     .eq('nombre', usuarioActual);
@@ -69,8 +70,11 @@ async function transferir() {
     .update({ saldo: rec.saldo + monto })
     .eq('nombre', receptor);
 
-  await db.from('transferencias')
-    .insert([{ emisor: usuarioActual, receptor, monto }]);
+  // Registrar ambas transacciones (una para el emisor, otra para el receptor)
+  await db.from('transacciones').insert([
+    { emisor: usuarioActual, receptor, monto, tipo: 'transferido' },
+    { emisor: receptor, receptor: usuarioActual, monto, tipo: 'recibido' }
+  ]);
 
   alert("Transferencia exitosa ✅");
   document.getElementById('receptor').value = '';
@@ -79,17 +83,60 @@ async function transferir() {
   await cargarHistorial();
 }
 
+async function depositar() {
+  const montoDeposito = Number(document.getElementById('montoDeposito').value);
+  if (isNaN(montoDeposito) || montoDeposito <= 0) return alert('Ingresá un monto válido');
+
+  const { data: user, error } = await db
+    .from('usuarios').select('*').eq('nombre', usuarioActual).single();
+  if (error || !user) return alert('Usuario no encontrado');
+
+  // Sumar saldo al usuario actual
+  await db.from('usuarios')
+    .update({ saldo: user.saldo + montoDeposito })
+    .eq('nombre', usuarioActual);
+
+  // Registrar depósito con tipo
+  await db.from('transacciones')
+    .insert([{ emisor: 'DEPOSITO', receptor: usuarioActual, monto: montoDeposito, tipo: 'deposito' }]);
+
+  document.getElementById('montoDeposito').value = '';
+  await actualizarSaldo();
+  await cargarHistorial();
+  alert('Depósito realizado ✅');
+}
+
 async function cargarHistorial() {
   const { data } = await db
-    .from('transferencias')
+    .from('transacciones')
     .select('*')
-    .or('emisor.eq.' + usuarioActual + ',receptor.eq.' + usuarioActual)
+    .or(`emisor.eq.${usuarioActual},receptor.eq.${usuarioActual}`)
     .order('fecha', { ascending: false });
 
-  const h = data.map(t =>
-    `<p>${t.emisor} → ${t.receptor}: $${t.monto}</p>`
-  ).join('');
-  document.getElementById('historial').innerHTML = h || "Sin movimientos";
+  if (!data || data.length === 0) {
+    document.getElementById('historial').innerHTML = "Sin movimientos";
+    return;
+  }
+
+  // Generar texto legible según el tipo
+  const h = data.map(t => {
+    if (t.tipo === 'deposito') {
+      return `<p> Depósito : +$${t.monto}</p>`;
+    } else if (t.tipo === 'transferido') {
+      return `<p> Transferencia enviada a ${t.receptor}: -$${t.monto}</p>`;
+    } else if (t.tipo === 'recibido') {
+      return `<p> Transferencia recibida de ${t.emisor}: +$${t.monto}</p>`;
+    } else {
+      // por compatibilidad con registros viejos sin tipo
+      if (t.emisor === 'DEPOSITO')
+        return `<p> Depósito recibido: +$${t.monto}</p>`;
+      if (t.emisor === usuarioActual)
+        return `<p> Transferencia enviada a ${t.receptor}: -$${t.monto}</p>`;
+      return `<p> Transferencia recibida de ${t.emisor}: +$${t.monto}</p>`;
+    }
+  }).join('');
+
+  document.getElementById('historial').innerHTML = h;
 }
 
 function salir() {
@@ -99,6 +146,6 @@ function salir() {
   document.getElementById('login').style.display = 'block';
 }
 
-// Restaurar sesión
+// Restaurar sesión si ya estaba logueado
 const guardado = localStorage.getItem('usuario');
 if (guardado) { usuarioActual = guardado; mostrarPanel(); }
