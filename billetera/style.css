@@ -1,3 +1,44 @@
+/* MODO OSCURO*/
+.dark-mode {
+  background: #1e1e1e;
+  color: #f7f7f7;
+}
+
+.dark-mode #panel,
+.dark-mode #login {
+  background: #2a2a2a;
+  color: #f7f7f7;
+  border-color: #444;
+}
+
+.dark-mode input {
+  background: #333;
+  border-color: #555;
+  color: #eee;
+}
+
+.dark-mode button {
+  background: linear-gradient(135deg, #444, #666);
+  color: #fff;
+}
+
+.dark-mode button:hover {
+  background: linear-gradient(135deg, #666, #444);
+}
+
+.dark-mode #historial {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #ddd;
+}
+
+body, #panel, #login {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+
+
+
 /* =========================================
    PALETA FORMAL - HONEY MONEY
 ========================================= */

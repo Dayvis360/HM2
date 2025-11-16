@@ -1,3 +1,23 @@
+function cambiarModo() {
+  document.body.classList.toggle("dark-mode");
+
+  const activado = document.body.classList.contains("dark-mode");
+  localStorage.setItem("darkMode", activado ? "on" : "off");
+
+  document.getElementById('toggleDarkMode').innerText = 
+    activado ? "Modo Claro" : "Modo Oscuro";
+}
+
+// Restaurar modo al cargar
+if (localStorage.getItem("darkMode") === "on") {
+  document.body.classList.add("dark-mode");
+  setTimeout(() => {
+    document.getElementById('toggleDarkMode').innerText = "Modo Claro";
+  }, 10);
+}
+
+
+
 //  Configurá tus claves de Supabase
 const SUPABASE_URL = 'https://hrvrigzzyxuookjolfid.supabase.co';
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnJpZ3p6eXh1b29ram9sZmlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNzQwNzYsImV4cCI6MjA3Nzc1MDA3Nn0.Iy8hJqJbuau9YrF8AqVDmmmLSWLGaPM74hwvmA_9ruo";
@@ -335,6 +355,36 @@ function salir() {
   document.getElementById('login').style.display = 'block';
 }
 
+async function eliminarCuenta() {
+  const confirmar = confirm(
+    "¿Estás segura/o de que querés eliminar tu cuenta? Esta acción es irreversible."
+  );
+
+  if (!confirmar) return;
+
+  // 1) Borrar transacciones relacionadas
+  await db.from("transacciones")
+    .delete()
+    .or(`emisor.eq.${usuarioActual},receptor.eq.${usuarioActual}`);
+
+  // 2) Borrar usuario
+  const { error } = await db
+    .from("usuarios")
+    .delete()
+    .eq("nombre", usuarioActual);
+
+  if (error) {
+    console.error(error);
+    return alert("Error eliminando la cuenta");
+  }
+
+  alert("Cuenta eliminada correctamente");
+  
+  // Cerrar sesión
+  salir();
+}
+
 // Restaurar sesión
 const guardado = localStorage.getItem('usuario');
 if (guardado) { usuarioActual = guardado; mostrarPanel(); }
+

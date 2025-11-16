@@ -22,12 +22,13 @@
     <p>Caja: <span id="cajaMonto">0</span></p>
     <p>Dólares: <span id="dolares">0</span></p>
 
+    <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
 
     <h3>Enviar dinero</h3>
     <input id="receptor" placeholder="Nombre del receptor">
     <input id="monto" type="number" placeholder="Monto">
     <button onclick="transferir()">Transferir</button>
-<!-- aqui esta todo lo relacionado al deposito, para poder agregar saldo solo -->
+    <!-- aqui esta todo lo relacionado al deposito, para poder agregar saldo solo -->
     <h3>Depositar</h3>
     <input id="montoDeposito" type="number" placeholder="monto">
     <button onclick="depositar()">Depositar</button>
@@ -74,8 +75,15 @@
     </div>
 
     <button onclick="salir()">Cerrar sesión</button>
+    //el estilo pasarlo al css, xd
+  
+    <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
+      Eliminar Cuenta
+</button>
+
   </div>
 
   <script src="script.js"></script>
+  <script src="dark.css"></script>
 </body>
 </html>
