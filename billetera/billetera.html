@@ -19,6 +19,9 @@
   <div id="panel">
     <h2 id="usuario"></h2>
     <p>Saldo: <span id="saldo">0</span></p>
+    <p>Caja: <span id="cajaMonto">0</span></p>
+    <p>Dólares: <span id="dolares">0</span></p>
+
 
     <h3>Enviar dinero</h3>
     <input id="receptor" placeholder="Nombre del receptor">
@@ -28,6 +31,20 @@
     <h3>Depositar</h3>
     <input id="montoDeposito" type="number" placeholder="monto">
     <button onclick="depositar()">Depositar</button>
+
+    <h3>Convertir a dólares</h3>
+    <input id="montoUSD" type="number" placeholder="Monto en ARS">
+    <button onclick="convertirADolares()">Convertir</button>
+    <p id="resultadoUSD"></p>
+
+    <h3>Guardar en Caja</h3>
+    <input id="montoCaja" type="number" placeholder="Monto a guardar">
+    <button onclick="guardarEnCaja()">Guardar en caja</button>
+
+    <h3>Retirar de Caja</h3>
+    <input id="montoRetiroCaja" type="number" placeholder="Monto a retirar">
+    <button onclick="retirarDeCaja()">Retirar</button>
+
 
     <h3>Historial</h3>
     <div class="historial-controls">

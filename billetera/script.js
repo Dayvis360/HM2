@@ -39,6 +39,8 @@ async function mostrarPanel() {
   document.getElementById('usuario').innerText = `Usuario: ${usuarioActual}`;
   await actualizarSaldo();
   await cargarHistorial();
+  await actualizarInterfazCaja();
+  await actualizarCantidadDolares();
   // configurar listener del filtro (si existe en la UI)
   const filtroEl = document.getElementById('filtroTipo');
   if (filtroEl) {
@@ -120,7 +122,147 @@ async function depositar() {
   alert('Depósito realizado ');
 }
 
+async function convertirADolares() {
+  const montoARS = Number(document.getElementById("montoUSD").value);
 
+  if (isNaN(montoARS) || montoARS <= 0)
+    return alert("Ingresá un monto válido");
+
+  // Cotización fija (o dinámica si querés)
+  const tasaDolar = 1000; 
+  const montoUSD = Number((montoARS / tasaDolar).toFixed(2));
+
+  // Obtener datos del usuario
+  const { data: user, error } = await db
+    .from("usuarios")
+    .select("saldo, dolares")
+    .eq("nombre", usuarioActual)
+    .single();
+
+  if (error || !user) return alert("Error cargando usuario");
+
+  if (user.saldo < montoARS)
+    return alert("Saldo insuficiente para convertir");
+
+  const nuevoSaldo = user.saldo - montoARS;
+  const nuevosDolares = (user.dolares || 0) + montoUSD;
+
+  // Actualizar usuario
+  const { error: updateError } = await db
+    .from("usuarios")
+    .update({
+      saldo: nuevoSaldo,
+      dolares: nuevosDolares
+    })
+    .eq("nombre", usuarioActual);
+
+  if (updateError) {
+    console.log(updateError);
+    return alert("Error guardando conversión");
+  }
+
+  // Mostrar resultado al usuario
+  document.getElementById("resultadoUSD").innerText =
+    `Convertiste $${montoARS} ARS → USD ${montoUSD}`;
+
+  await actualizarSaldo();
+  await actualizarCantidadDolares();
+
+  alert("Conversión realizada correctamente ✔️");
+}
+
+async function actualizarCantidadDolares() {
+  const { data: user } = await db
+    .from("usuarios")
+    .select("dolares")
+    .eq("nombre", usuarioActual)
+    .single();
+
+  document.getElementById("dolares").innerText = user?.dolares ?? 0;
+}
+
+
+async function guardarEnCaja() {
+  const monto = Number(document.getElementById("montoCaja").value);
+  if (isNaN(monto) || monto <= 0)
+    return alert("Ingresa un monto válido");
+
+  const { data: user, error } = await db
+    .from("usuarios")
+    .select("saldo, caja")
+    .eq("nombre", usuarioActual)
+    .single();
+
+  if (error || !user) return alert("Error al cargar usuario");
+
+  if (user.saldo < monto)
+    return alert("No tienes saldo suficiente");
+
+  const nuevoSaldo = user.saldo - monto;
+  const nuevaCaja = (user.caja || 0) + monto;
+
+  // Actualizar saldo y caja
+  await db
+    .from("usuarios")
+    .update({ saldo: nuevoSaldo, caja: nuevaCaja })
+    .eq("nombre", usuarioActual);
+
+  // Actualizar UI
+  document.getElementById("montoCaja").value = "";
+  await actualizarSaldo();
+  await actualizarInterfazCaja();
+
+  alert("Monto guardado en tu caja correctamente 👍");
+}
+
+
+async function retirarDeCaja() {
+  const monto = Number(document.getElementById("montoRetiroCaja").value);
+  if (isNaN(monto) || monto <= 0) return alert("Ingresá un monto válido");
+
+  const { data: user, error } = await db
+    .from("usuarios")
+    .select("saldo, caja")
+    .eq("nombre", usuarioActual)
+    .single();
+
+  if (error || !user) return alert("Error al cargar usuario");
+  if (user.caja < monto) return alert("La caja no tiene suficiente dinero");
+
+  const nuevoSaldo = user.saldo + monto;
+  const nuevaCaja = user.caja - monto;
+
+  await db
+    .from("usuarios")
+    .update({ saldo: nuevoSaldo, caja: nuevaCaja })
+    .eq("nombre", usuarioActual);
+
+  // Registrar movimiento
+  await db.from("transacciones").insert([{
+    emisor: usuarioActual,
+    receptor: usuarioActual,
+    monto: monto,
+    tipo: "retiro_caja"
+  }]);
+
+  document.getElementById("montoRetiroCaja").value = "";
+  await actualizarSaldo();
+  await actualizarInterfazCaja();
+  await cargarHistorial();
+
+  alert("Retiro desde caja realizado");
+}
+
+
+async function actualizarInterfazCaja() {
+  const { data: user } = await db
+    .from("usuarios")
+    .select("caja")
+    .eq("nombre", usuarioActual)
+    .single();
+
+  document.getElementById("cajaMonto").innerText = user.caja || 0;
+}
 
 
 async function cargarHistorial() {
