@@ -1,64 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Honey Money </title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honey Money – Gestión Inteligente del Dinero</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1> Honey Money</h1>
 
-  <div id="login">
-    <h3>Ingresá tu nombre único</h3>
-    <input id="nombre" placeholder="Tu nombre">
-    <button onclick="entrar()">Entrar</button>
-  </div>
+    <!-- HERO -->
+    <section class="hero">
+        <h1>La forma más inteligente y simple de gestionar tu dinero</h1>
+        <p>Honey Money aprende de ti, anticipa tus necesidades y te ayuda a manejar tu dinero con precisión y sin esfuerzo.</p>
+        <a href="billetera/billetera.html" class="cta-btn">Empieza a usar Honey Money</a>
+    </section>
 
-  <div id="panel">
-    <h2 id="usuario"></h2>
-    <p>Saldo: <span id="saldo">0</span></p>
+    <div class="container">
 
-    <h3>Enviar dinero</h3>
-    <input id="receptor" placeholder="Nombre del receptor">
-    <input id="monto" type="number" placeholder="Monto">
-    <button onclick="transferir()">Transferir</button>
-<!-- aqui esta todo lo relacionado al deposito, para poder agregar saldo solo -->
-    <h3>Depositar</h3>
-    <input id="montoDeposito" type="number" placeholder="monto">
-    <button onclick="depositar()">Depositar</button>
+        <!-- BENEFICIOS -->
+        <section class="benefits">
+            <div class="benefit-box">
+                <h3>Inteligencia que se adapta a ti</h3>
+                <p>Honey Money utiliza IA para analizar tus hábitos y transformarlos en recomendaciones exactas, sin complicaciones.</p>
+            </div>
 
-    <h3>Historial</h3>
-    <div class="historial-controls">
-      <label for="filtroTipo">Mostrar:</label>
-      <select id="filtroTipo">
-        <option value="todo">Todo</option>
-        <option value="transferencia">Transferencias</option>
-        <option value="deposito">Depósitos</option>
-      </select>
+            <div class="benefit-box">
+                <h3>Anticipa tus necesidades</h3>
+                <p>A medida que lo usas, el sistema puede prever gastos, oportunidades de ahorro o movimientos importantes.</p>
+            </div>
+
+            <div class="benefit-box">
+                <h3>Simple, seguro y natural</h3>
+                <p>Diseñado para cualquier persona: sin curva de aprendizaje, intuitivo y con total privacidad.</p>
+            </div>
+
+            <div class="benefit-box">
+                <h3>Más valor con cada uso</h3>
+                <p>Mientras más interactúas con Honey Money, más beneficios y precisión obtienes.</p>
+            </div>
+
+            <div class="benefit-box">
+                <h3>Una nueva relación con tu dinero</h3>
+                <p>No es solo una billetera virtual: es un asistente confiable y siempre un paso adelante.</p>
+            </div>
+        </section>
+
+        <!-- TESTIMONIO -->
+        <section class="testimonial">
+            “Por primera vez siento que mis finanzas trabajan conmigo, no en mi contra. Honey Money es como tener un asesor personal en el bolsillo.”
+        </section>
+
+        <!-- CONFIANZA -->
+        <section class="trust">
+            <h2>Seguridad y confianza garantizadas</h2>
+            <ul>
+                <li>🔒 Encriptación de nivel bancario</li>
+                <li>🛡️ Privacidad protegida desde el diseño</li>
+                <li>🤖 IA creada para ayudarte, no para invadir</li>
+            </ul>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <section class="footer-cta">
+            <h2>¿Listo para una forma más inteligente de manejar tu dinero?</h2>
+            <a href="billetera/billetera.html" class="cta-btn">Crear cuenta gratis</a>
+        </section>
+
     </div>
 
-    <div id="historial" class="historial-table-container">
-      <table id="historialTable">
-        <thead>
-          <tr>
-            <th>Emisor</th>
-            <th>Receptor</th>
-            <th>Monto</th>
-            <th>Tipo</th>
-            <th>Dirección</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-        <tbody id="historialBody">
-        </tbody>
-      </table>
-    </div>
-
-    <button onclick="salir()">Cerrar sesión</button>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

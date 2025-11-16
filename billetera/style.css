@@ -1,0 +1,168 @@
+/* =========================================
+   PALETA FORMAL - HONEY MONEY
+========================================= */
+:root {
+  --honey-yellow: #f7c948;
+  --honey-gold: #d9a441;
+  --honey-soft: #fff7df;
+  --honey-brown: #5c4002;
+  --honey-brown-dark: #3e2b01;
+  --neutral-bg: #faf8f3;
+  --neutral-border: #e5d7b3;
+  --shadow-soft: rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================
+   GENERAL
+========================================= */
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(145deg, #fff9ec, #f4ecd7);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--honey-brown-dark);
+}
+
+/* =========================================
+   TITULOS
+========================================= */
+h1 {
+  color: var(--honey-brown-dark);
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+h2, h3 {
+  color: var(--honey-brown-dark);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   TARJETAS PRINCIPALES (LOGIN & PANEL)
+========================================= */
+#login,
+#panel {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 25px var(--shadow-soft);
+  text-align: center;
+  border: 1px solid var(--neutral-border);
+  transition: 0.25s ease;
+}
+
+#login:hover,
+#panel:hover {
+  transform: translateY(-3px);
+}
+
+/* Por defecto el panel no se muestra */
+#panel { display: none; }
+
+/* =========================================
+   TEXTOS
+========================================= */
+p {
+  color: #6b5730;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+input {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--neutral-border);
+  background: #fffdf7;
+  transition: 0.25s ease;
+}
+
+input:focus {
+  border-color: var(--honey-gold);
+  box-shadow: 0 0 7px rgba(217, 164, 65, 0.4);
+  outline: none;
+}
+
+/* =========================================
+   BOTONES
+========================================= */
+button {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--honey-yellow), var(--honey-gold));
+  color: var(--honey-brown-dark);
+  transition: 0.25s ease;
+  margin-bottom: 0.8rem;
+}
+
+button:hover {
+  background: linear-gradient(135deg, var(--honey-gold), var(--honey-yellow));
+  transform: scale(1.02);
+}
+
+/* =========================================
+   HISTORIAL ESTILO TARJETA
+========================================= */
+#historial {
+  background: #fffdf6;                    
+  border: 2px solid #e2c98a;              
+  border-radius: 14px;                    
+  padding: 1rem;
+  text-align: left;
+  max-height: 180px;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  color: #5c4002;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.07); 
+  margin-top: 1rem;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 243, 209, 0.4),
+    rgba(255, 255, 255, 0.7)
+  );                                      
+}
+
+/* Scroll elegante */
+#historial::-webkit-scrollbar { width: 8px; }
+#historial::-webkit-scrollbar-thumb {
+  background: #d9a441;
+  border-radius: 10px;
+}
+#historial::-webkit-scrollbar-track {
+  background: #f8ecce;
+  border-radius: 10px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 768px) {
+  #login, #panel { padding: 2rem; max-width: 92%; }
+  h1 { font-size: 1.7rem; }
+}
+
+@media (max-width: 480px) {
+  #login, #panel { padding: 1.6rem; }
+  h1 { font-size: 1.5rem; }
+  p, h2, h3 { font-size: 0.9rem; }
+}

@@ -1,142 +1,149 @@
-/* --- ESTILOS GENERALES --- */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: #fff7e1; /* fondo cálido */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  box-sizing: border-box;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #fafafa;
+    color: #333;
+    line-height: 1.6;
+    font-size: clamp(14px, 2vw, 18px);
 }
 
-/* --- TÍTULO PRINCIPAL --- */
-h1 {
-  color: #5c4002;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+h1, h2, h3 {
+    margin: 0 0 10px;
+    font-weight: 700;
 }
 
-/* --- CONTENEDORES DE LOGIN Y PANEL --- */
-#login,
-#panel {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  padding: 2.8rem 3rem;
-  width: 100%;
-  max-width: 460px;
-  box-sizing: border-box;
-  text-align: center;
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: clamp(20px, 4vw, 40px);
 }
 
-/* Al inicio, solo se muestra el login */
-#panel {
-  display: none;
+
+.hero {
+    text-align: center;
+    padding: clamp(40px, 8vw, 80px) 20px;
 }
 
-/* --- TÍTULOS SECUNDARIOS --- */
-h2, h3 {
-  color: #5c4002;
-  margin-bottom: 0.8rem;
+.hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    line-height: 1.2;
 }
 
-/* --- TEXTOS Y PÁRRAFOS --- */
-p {
-  color: #7a5a10;
-  margin-bottom: 1rem;
+.hero p {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-top: 10px;
+    color: #555;
 }
 
-/* --- INPUTS --- */
-input {
-  width: 92%;
-  padding: 0.9rem;
-  margin-bottom: 1rem;
-  border: 1px solid #f3d56c;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  background-color: #fffdf6;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  box-sizing: border-box;
+.cta-btn {
+    background: #f7c948;
+    color: #000;
+    padding: clamp(12px, 2vw, 16px) clamp(20px, 4vw, 32px);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 25px;
+    transition: 0.3s;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
-input:focus {
-  outline: none;
-  border-color: #f0b018;
-  box-shadow: 0 0 5px rgba(240, 191, 58, 0.4);
+.cta-btn:hover {
+    background: #e0b53f;
 }
 
-/* --- BOTONES --- */
-button {
-  width: 92%;
-  background-color: #f7c948;
-  color: #5c4002;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.9rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  margin-bottom: 0.8rem;
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(20px, 4vw, 40px);
+    margin-top: clamp(40px, 6vw, 60px);
 }
 
-button:hover {
-  background-color: #f0b018;
-  transform: scale(1.02);
+.benefit-box {
+    background: white;
+    padding: clamp(20px, 4vw, 30px);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
 }
 
-/* --- HISTORIAL --- */
-#historial {
-  background-color: #fffdf6;
-  border: 1px solid #f3d56c;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: left;
-  max-height: 150px;
-  overflow-y: auto;
-  font-size: 0.9rem;
-  color: #5c4002;
+.benefit-box h3 {
+    margin-bottom: 10px;
+    color: #d19500;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
 }
 
-/* --- RESPONSIVE DESIGN --- */
-@media (max-width: 768px) {
-  #login,
-  #panel {
-    padding: 2.2rem;
-    max-width: 90%;
-  }
-
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  input,
-  button {
-    font-size: 0.95rem;
-    width: 95%;
-  }
+.testimonial {
+    margin-top: clamp(40px, 6vw, 60px);
+    padding: clamp(20px, 4vw, 30px);
+    background: #fff7dd;
+    border-left: 5px solid #f7c948;
+    font-style: italic;
+    border-radius: 8px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
-@media (max-width: 480px) {
-  #login,
-  #panel {
-    padding: 1.8rem;
-  }
 
-  h1 {
-    font-size: 1.4rem;
-  }
+.trust {
+    margin-top: clamp(40px, 6vw, 60px);
+    text-align: center;
+    color: #555;
+}
 
-  p, h2, h3 {
-    font-size: 0.9rem;
-  }
+.trust h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+}
 
-  input,
-  button {
-    font-size: 0.9rem;
-    width: 100%;
-  }
+.trust ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.trust li {
+    margin: 6px 0;
+}
+
+
+.footer-cta {
+    text-align: center;
+    margin-top: clamp(60px, 8vw, 90px);
+    padding: clamp(30px, 5vw, 60px) 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.footer-cta h2 {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    margin-bottom: 20px;
+}
+
+
+
+/* Tablets */
+@media (max-width: 900px) {
+    .hero {
+        padding: 50px 20px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Móviles pequeños (type iPhone SE) */
+@media (max-width: 380px) {
+    .cta-btn {
+        width: 100%;
+    }
 }
