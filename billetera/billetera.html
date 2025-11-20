@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="../imagenes/logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honey Money </title>
+  <link rel="stylesheet" href="billetera.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1> Honey Money</h1>
+
+  <div id="login">
+    <h3>Ingresá tu nombre único</h3>
+    <input id="nombre" placeholder="Tu nombre">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+
+  <div id="panel">
+    <h2 id="usuario"></h2>
+    <p>Saldo: <span id="saldo">0</span></p>
+    <p>Caja: <span id="cajaMonto">0</span></p>
+    <p>Dólares: <span id="dolares">0</span></p>
+
+    <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
+
+    <button class="action-btn" onclick="location.href='../operaciones/operaciones.html'">
+      Operaciones
+    </button>
+
+    <button class="action-btn" onclick="location.href='../historial/historial.html'">
+      Historial
+    </button>
+
+    <button onclick="salir()">Cerrar sesión</button>
+  
+    <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
+      Eliminar Cuenta
+</button>
+
+  </div>
+
+  <script src="billetera.js"></script>
+  <script src="dark.css"></script>
+</body>
+</html>
