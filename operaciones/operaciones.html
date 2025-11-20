@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="../imagenes/logo.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Honey Money - Operaciones</title>
+
+  <link rel="stylesheet" href="../billetera/style.css" />
+  <script src="../billetera/script.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Honey Money</h1>
+    <h3>Enviar dinero</h3>
+    <input id="receptor" placeholder="Nombre del receptor" />
+    <input id="monto" type="number" placeholder="Monto" />
+    <button onclick="transferir()">Transferir</button>
+
+    <!-- aqui esta todo lo relacionado al deposito, para poder agregar saldo solo -->
+    <h3>Depositar</h3>
+    <input id="montoDeposito" type="number" placeholder="monto" />
+    <button onclick="depositar()">Depositar</button>
+
+    <h3>Convertir a dólares</h3>
+    <input id="montoUSD" type="number" placeholder="Monto en ARS" />
+    <button onclick="convertirADolares()">Convertir</button>
+    <p id="resultadoUSD"></p>
+
+    <h3>Guardar en Caja</h3>
+    <input id="montoCaja" type="number" placeholder="Monto a guardar" />
+    <button onclick="guardarEnCaja()">Guardar en caja</button>
+
+    <h3>Retirar de Caja</h3>
+    <input id="montoRetiroCaja" type="number" placeholder="Monto a retirar" />
+    <button onclick="retirarDeCaja()">Retirar</button>
+
+    <button class="action-btn" onclick="location.href='../billetera/billetera.html'">
+        Volver al inicio de Saldo
+    </button>
+
+    <button class="action-btn" onclick="location.href='../historial/historial.html'">
+        Historial
+    </button>
+  </div>
+</body>
+</html>

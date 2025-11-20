@@ -1,88 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Honey Money </title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="../imagenes/logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Honey Money - Inicio</title>
+
+  <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="script.js" defer></script>
+
 </head>
 <body>
-  <h1> Honey Money</h1>
 
-  <div id="login">
-    <h3>Ingresá tu nombre único</h3>
-    <input id="nombre" placeholder="Tu nombre">
-    <button onclick="entrar()">Entrar</button>
-  </div>
+  <div class="container">
 
-  <div id="panel">
-    <h2 id="usuario"></h2>
-    <p>Saldo: <span id="saldo">0</span></p>
-    <p>Caja: <span id="cajaMonto">0</span></p>
-    <p>Dólares: <span id="dolares">0</span></p>
+    <h1>Honey Money</h1>
 
-    <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
-
-    <h3>Enviar dinero</h3>
-    <input id="receptor" placeholder="Nombre del receptor">
-    <input id="monto" type="number" placeholder="Monto">
-    <button onclick="transferir()">Transferir</button>
-    <!-- aqui esta todo lo relacionado al deposito, para poder agregar saldo solo -->
-    <h3>Depositar</h3>
-    <input id="montoDeposito" type="number" placeholder="monto">
-    <button onclick="depositar()">Depositar</button>
-
-    <h3>Convertir a dólares</h3>
-    <input id="montoUSD" type="number" placeholder="Monto en ARS">
-    <button onclick="convertirADolares()">Convertir</button>
-    <p id="resultadoUSD"></p>
-
-    <h3>Guardar en Caja</h3>
-    <input id="montoCaja" type="number" placeholder="Monto a guardar">
-    <button onclick="guardarEnCaja()">Guardar en caja</button>
-
-    <h3>Retirar de Caja</h3>
-    <input id="montoRetiroCaja" type="number" placeholder="Monto a retirar">
-    <button onclick="retirarDeCaja()">Retirar</button>
-
-
-    <h3>Historial</h3>
-    <div class="historial-controls">
-      <label for="filtroTipo">Mostrar:</label>
-      <select id="filtroTipo">
-        <option value="todo">Todo</option>
-        <option value="transferencia">Transferencias</option>
-        <option value="deposito">Depósitos</option>
-      </select>
+    <div id="login">
+      <h3>Ingresá tu nombre único</h3>
+      <input id="nombre" placeholder="Tu nombre" />
+      <button onclick="entrar()">Entrar</button>
     </div>
 
-    <div id="historial" class="historial-table-container">
-      <table id="historialTable">
-        <thead>
-          <tr>
-            <th>Emisor</th>
-            <th>Receptor</th>
-            <th>Monto</th>
-            <th>Tipo</th>
-            <th>Dirección</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-        <tbody id="historialBody">
-        </tbody>
-      </table>
-    </div>
+    <div id="panel">
+      <h2 id="usuario"></h2>
+      <p>Saldo: <span id="saldo">0</span></p>
+      <p>Caja: <span id="cajaMonto">0</span></p>
+      <p>Dólares: <span id="dolares">0</span></p>
 
-    <button onclick="salir()">Cerrar sesión</button>
-  
-    <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
-      Eliminar Cuenta
-</button>
+      <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
+
+      <!-- BOTONES NUEVOS → ahora dentro del panel -->
+      <button class="action-btn" onclick="location.href='../operaciones/operaciones.html'">
+        Operaciones
+      </button>
+
+      <button class="action-btn" onclick="location.href='../historial/historial.html'">
+        Historial
+      </button>
+
+    </div>
 
   </div>
 
-  <script src="script.js"></script>
-  <script src="dark.css"></script>
 </body>
 </html>

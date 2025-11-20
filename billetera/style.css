@@ -1,4 +1,3 @@
-
 .dark-mode {
   background: #1e1e1e !important;
   color: #f7f7f7 !important;
@@ -50,6 +49,7 @@
 }
 
 
+
 :root {
   --honey-yellow: #f7c948;
   --honey-gold: #d9a441;
@@ -60,7 +60,6 @@
   --neutral-border: #e5d7b3;
   --shadow-soft: rgba(0, 0, 0, 0.06);
 }
-
 
 * { box-sizing: border-box; }
 
@@ -116,6 +115,7 @@ input:focus, select:focus {
   box-shadow: 0 0 7px rgba(217, 164, 65, 0.4);
 }
 
+
 button {
   width: 100%;
   padding: 0.9rem;
@@ -131,6 +131,35 @@ button {
 }
 
 button:hover { transform: scale(1.03); }
+
+
+
+/* -------------------------------------------
+   NUEVO: estilos para los botones de enlaces
+------------------------------------------- */
+.link-button {
+  display: block;             /* uno debajo del otro */
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-top: 0.6rem;
+  background: linear-gradient(135deg, var(--honey-yellow), var(--honey-gold));
+  color: var(--honey-brown-dark);
+  box-shadow: none;
+  transition: 0.25s ease;
+}
+
+.link-button:hover {
+  transform: scale(1.03);
+}
+
+
+
+/* ----------------------------------------- */
 
 
 .historial-table-container {
@@ -184,14 +213,12 @@ tbody tr:nth-child(even) {
   body { padding: 12px; }
 }
 
-
 @media (max-width: 600px) {
   #login, #panel { padding: 1.6rem; }
   h1 { font-size: 1.7rem; }
   input, button, select { font-size: 0.95rem; }
   table { min-width: 500px; }
 }
-
 
 @media (max-width: 380px) {
   h1 { font-size: 1.5rem; }
