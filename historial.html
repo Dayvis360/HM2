@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/png" href="../imagenes/logo.png">
+  <link rel="icon" type="image/png" href="imagenes/logo.png">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Honey Money - Historial</title>
 
-  <link rel="stylesheet" href="../billetera/style.css" />
-  <script src="../billetera/script.js" defer></script>
+  <link rel="stylesheet" href="billetera.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="billetera.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -42,17 +43,18 @@
     <button onclick="salir()">Cerrar sesión</button>
 
    
-    <button class="action-btn" onclick="location.href='../operaciones/operaciones.html'">
+    <button class="action-btn" onclick="location.href='operaciones.html'">
         Operaciones
     </button>
 
-    <button class="action-btn" onclick="location.href='../billetera/billetera.html'">
+    <button class="action-btn" onclick="location.href='billetera.html'">
         Volver al inicio de Saldo
     </button>
 
     <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
         Eliminar Cuenta
         </button>
-  </div>
+    </div>
+    <script src="billetera.js"></script>
 </body>
 </html>
