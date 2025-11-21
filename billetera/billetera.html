@@ -2,46 +2,127 @@
 <html lang="es">
 <head>
   <link rel="icon" type="image/png" href="../imagenes/logo.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Honey Money </title>
-  <link rel="stylesheet" href="billetera.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Honey Money - Inicio</title>
+
+  <link rel="stylesheet" href="billetera.css" />
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="billetera.js" defer></script>
+
 </head>
 <body>
-  <h1> Honey Money</h1>
+  <h1>Honey Money</h1>
 
-  <div id="login">
-    <h3>Ingresá tu nombre único</h3>
-    <input id="nombre" placeholder="Tu nombre">
-    <button onclick="entrar()">Entrar</button>
-  </div>
+  <!-- PANTALLA 1: LOGIN -->
+  <section id="pantalla-login" class="pantalla activa">
+    <div id="login">
+      <h3>Ingresá tu nombre único</h3>
+      <input id="nombre" placeholder="Tu nombre">
+      <button onclick="entrar(); mostrarPantalla('principal')">Entrar</button>
 
-  <div id="panel">
-    <h2 id="usuario"></h2>
-    <p>Saldo: <span id="saldo">0</span></p>
-    <p>Caja: <span id="cajaMonto">0</span></p>
-    <p>Dólares: <span id="dolares">0</span></p>
+    </div>
+  </section>
 
-    <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
+<!-- PANTALLA 2: PRINCIPAL -->
 
-    <button class="action-btn" onclick="location.href='../operaciones/operaciones.html'">
-      Operaciones
-    </button>
+  <section id="pantalla-principal" class="pantalla">
+    <div id="panel">
+      <h2 id="usuario"></h2>
+      <p>Saldo: <span id="saldo">0</span></p>
+      <p>Caja: <span id="cajaMonto">0</span></p>
+      <p>Dólares: <span id="dolares">0</span></p>
 
-    <button class="action-btn" onclick="location.href='../historial/historial.html'">
-      Historial
-    </button>
+      <button id="toggleDarkMode" onclick="cambiarModo()">Modo Oscuro</button>
+      <button onclick="mostrarPantalla('historial')">Ver Historial</button>
+      <button onclick="mostrarPantalla('operaciones')">Ver Operaciones</button>
+      <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
+    </div>
 
-    <button onclick="salir()">Cerrar sesión</button>
-  
-    <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
-      Eliminar Cuenta
-</button>
+<!-- PANTALLA 2: OPERACIONES -->
+  </section>
+  <section id="pantalla-operaciones" class="pantalla activa">
+    <div id="operaciones">
 
-  </div>
+      <h3>Enviar dinero</h3>
+      <input id="receptor" placeholder="Nombre del receptor">
+      <input id="monto" type="number" placeholder="Monto">
+      <button onclick="transferir()">Transferir</button>
 
-  <script src="billetera.js"></script>
-  <script src="dark.css"></script>
+      <h3>Depositar</h3>
+      <input id="montoDeposito" type="number" placeholder="monto">
+      <button onclick="depositar()">Depositar</button>
+
+      <h3>Convertir a dólares</h3>
+      <input id="montoUSD" type="number" placeholder="Monto en ARS">
+      <button onclick="convertirADolares()">Convertir</button>
+      <p id="resultadoUSD"></p>
+
+      <h3>Guardar en Caja</h3>
+      <input id="montoCaja" type="number" placeholder="Monto a guardar">
+      <button onclick="guardarEnCaja()">Guardar en caja</button>
+
+      <h3>Retirar de Caja</h3>
+      <input id="montoRetiroCaja" type="number" placeholder="Monto a retirar">
+      <button onclick="retirarDeCaja()">Retirar</button>
+
+      <button onclick="mostrarPantalla('historial')">Ver Historial</button>
+      <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
+      
+    </div>
+  </section>
+
+  <!-- PANTALLA 3: HISTORIAL -->
+  <section id="pantalla-historial" class="pantalla">
+    <div id="historial">
+      <h3>Historial</h3>
+
+      <div class="historial-controls">
+        <label for="filtroTipo">Mostrar:</label>
+        <select id="filtroTipo">
+          <option value="todo">Todo</option>
+          <option value="transferencia">Transferencias</option>
+          <option value="deposito">Depósitos</option>
+        </select>
+      </div>
+
+      <div id="historial" class="historial-table-container">
+        <table id="historialTable">
+          <thead>
+            <tr>
+              <th>Emisor</th>
+              <th>Receptor</th>
+              <th>Monto</th>
+              <th>Tipo</th>
+              <th>Dirección</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="historialBody"></tbody>
+        </table>
+      </div>
+
+      <button onclick="mostrarPantalla('operaciones')">Ver Operaciones</button>
+      <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
+      <button onclick="mostrarPantalla('principal')">Volver</button>
+      <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
+        Eliminar Cuenta
+      </button>
+
+
+
+    </div>
+    
+  </section>
+
+  <script src="script.js"></script>
+
+  <!-- CONTROL DE PANTALLAS SIN TOCAR TU JS -->
+  <script>
+    function mostrarPantalla(nombre) {
+      document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+      document.getElementById('pantalla-' + nombre).classList.add('activa');
+    }
+  </script>
 </body>
-</html>
+

@@ -227,3 +227,46 @@ tbody tr:nth-child(even) {
   table { min-width: 420px; }
 }
 
+/* ================================
+   CONTROL DE PANTALLAS / FLUJO
+================================ */
+
+.pantalla {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.pantalla.activa {
+  display: flex;
+}
+
+/* Contenedor general para que todo quede centrado */
+body {
+  align-items: center;
+}
+
+/* Ajuste visual para secciones */
+#pantalla-login,
+#pantalla-principal,
+#pantalla-operaciones,
+#pantalla-historial {
+  margin-top: 1.5rem;
+}
+
+/* Pequeña transición elegante, clásica pero premium */
+.pantalla {
+  animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
