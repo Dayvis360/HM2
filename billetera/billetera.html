@@ -19,14 +19,12 @@
     <div id="login">
       <h3>Ingresá tu nombre único</h3>
       <input id="nombre" placeholder="Tu nombre">
-      <button onclick="entrar(); mostrarPantalla('principal')">Entrar</button>
-
+      <button onclick="entrar(); mostrarPantalla('app')">Entrar</button>
     </div>
   </section>
 
-<!-- PANTALLA 2: PRINCIPAL -->
-
-  <section id="pantalla-principal" class="pantalla">
+  <!-- PANTALLA 2: PRINCIPAL -->
+  <section id="pantalla-app" class="pantalla">
     <div id="panel">
       <h2 id="usuario"></h2>
       <p>Saldo: <span id="saldo">0</span></p>
@@ -38,10 +36,10 @@
       <button onclick="mostrarPantalla('operaciones')">Ver Operaciones</button>
       <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
     </div>
-
-<!-- PANTALLA 2: OPERACIONES -->
   </section>
-  <section id="pantalla-operaciones" class="pantalla activa">
+
+  <!-- PANTALLA 3: OPERACIONES -->
+  <section id="pantalla-operaciones" class="pantalla">
     <div id="operaciones">
 
       <h3>Enviar dinero</h3>
@@ -67,14 +65,15 @@
       <button onclick="retirarDeCaja()">Retirar</button>
 
       <button onclick="mostrarPantalla('historial')">Ver Historial</button>
+      <button onclick="mostrarPantalla('app')">Volver al Panel</button>
       <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
-      
     </div>
   </section>
 
-  <!-- PANTALLA 3: HISTORIAL -->
+  <!-- PANTALLA 4: HISTORIAL -->
   <section id="pantalla-historial" class="pantalla">
     <div id="historial">
+
       <h3>Historial</h3>
 
       <div class="historial-controls">
@@ -86,7 +85,7 @@
         </select>
       </div>
 
-      <div id="historial" class="historial-table-container">
+      <div class="historial-table-container">
         <table id="historialTable">
           <thead>
             <tr>
@@ -103,26 +102,20 @@
       </div>
 
       <button onclick="mostrarPantalla('operaciones')">Ver Operaciones</button>
+      <button onclick="mostrarPantalla('app')">Volver al Panel</button>
       <button onclick="salir(); mostrarPantalla('login')">Cerrar sesión</button>
-      <button onclick="mostrarPantalla('principal')">Volver</button>
       <button onclick="eliminarCuenta()" style="background:#c0392b;color:white;">
         Eliminar Cuenta
       </button>
 
-
-
     </div>
-    
   </section>
 
-  <script src="script.js"></script>
-
-  <!-- CONTROL DE PANTALLAS SIN TOCAR TU JS -->
   <script>
     function mostrarPantalla(nombre) {
       document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
       document.getElementById('pantalla-' + nombre).classList.add('activa');
     }
   </script>
-</body>
 
+</body>

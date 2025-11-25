@@ -388,3 +388,5 @@ async function eliminarCuenta() {
 const guardado = localStorage.getItem('usuario');
 if (guardado) { usuarioActual = guardado; mostrarPanel(); }
 
+
+

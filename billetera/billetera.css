@@ -1,3 +1,7 @@
+#app-section {
+  display: none;
+}
+
 .dark-mode {
   background: #1e1e1e !important;
   color: #f7f7f7 !important;
