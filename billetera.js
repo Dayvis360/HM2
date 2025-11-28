@@ -20,7 +20,11 @@ if (localStorage.getItem("darkMode") === "on") {
 // Función para mostrar secciones
 function mostrarSeccion(nombre) {
   document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-  document.getElementById('seccion-' + nombre).classList.add('activa');
+  const target = document.getElementById('seccion-' + nombre);
+  if (target) {
+    target.classList.add('activa');
+    try { localStorage.setItem('lastView', nombre); } catch(e) {}
+  }
   
   // Actualizar navegación
   updateNavButtons();
@@ -135,6 +139,8 @@ async function entrar() {
     user = data;
   }
   usuarioActual = user.nombre;
+  // Persistir sesión
+  try { localStorage.setItem('usuario', usuarioActual); } catch(e) {}
   updateNavButtons();
   mostrarPanel();
   if (msg) msg.textContent = '';
@@ -556,6 +562,23 @@ async function confirmarEliminarCuenta() {
 
 // Configurar listener del filtro
 document.addEventListener('DOMContentLoaded', () => {
+  // Restaurar sesión si existe
+  const guardado = localStorage.getItem('usuario');
+  if (guardado) {
+    usuarioActual = guardado;
+    const lastView = localStorage.getItem('lastView') || 'operaciones';
+    mostrarPanel();
+    // Sobrescribir vista si había una guardada distinta
+    if (lastView && lastView !== 'operaciones') {
+      mostrarSeccion(lastView);
+    }
+    const fb = document.getElementById('login-feedback');
+    if (fb) {
+      fb.textContent = `Sesión restaurada: ${usuarioActual}`;
+      fb.style.color = 'green';
+      setTimeout(()=>{ fb.textContent=''; },3000);
+    }
+  }
   const filtroEl = document.getElementById('filtroTipo');
   if (filtroEl) {
     filtroEl.addEventListener('change', () => cargarHistorial());
