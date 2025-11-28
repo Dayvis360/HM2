@@ -1,74 +1,463 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" type="image/png" href="imagenes/logo.png">
+  <link rel="icon" type="image/png" href="../imagenes/logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Honey Money - Gestión Inteligente del Dinero</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honey Money – Gestión Inteligente del Dinero</title>
-    <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="billetera.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="billetera.js" defer></script>
+
 </head>
 <body>
-
-    <!-- HERO -->
-    <section class="hero">
-        <h1>La forma más inteligente y simple de gestionar tu dinero</h1>
-        <p>Honey Money aprende de ti, anticipa tus necesidades y te ayuda a manejar tu dinero con precisión y sin esfuerzo.</p>
-        <a href="billetera/billetera.html" class="cta-btn">Empieza a usar Honey Money</a>
-    </section>
-
-    <div class="container">
-
-        <!-- BENEFICIOS -->
-        <section class="benefits">
-            <div class="benefit-box">
-                <h3>Inteligencia que se adapta a ti</h3>
-                <p>Honey Money utiliza IA para analizar tus hábitos y transformarlos en recomendaciones exactas, sin complicaciones.</p>
-            </div>
-
-            <div class="benefit-box">
-                <h3>Anticipa tus necesidades</h3>
-                <p>A medida que lo usas, el sistema puede prever gastos, oportunidades de ahorro o movimientos importantes.</p>
-            </div>
-
-            <div class="benefit-box">
-                <h3>Simple, seguro y natural</h3>
-                <p>Diseñado para cualquier persona: sin curva de aprendizaje, intuitivo y con total privacidad.</p>
-            </div>
-
-            <div class="benefit-box">
-                <h3>Más valor con cada uso</h3>
-                <p>Mientras más interactúas con Honey Money, más beneficios y precisión obtienes.</p>
-            </div>
-
-            <div class="benefit-box">
-                <h3>Una nueva relación con tu dinero</h3>
-                <p>No es solo una billetera virtual: es un asistente confiable y siempre un paso adelante.</p>
-            </div>
-        </section>
-
-        <!-- TESTIMONIO -->
-        <section class="testimonial">
-            “Por primera vez siento que mis finanzas trabajan conmigo, no en mi contra. Honey Money es como tener un asesor personal en el bolsillo.”
-        </section>
-
-        <!-- CONFIANZA -->
-        <section class="trust">
-            <h2>Seguridad y confianza garantizadas</h2>
-            <ul>
-                <li>🔒 Encriptación de nivel bancario</li>
-                <li>🛡️ Privacidad protegida desde el diseño</li>
-                <li>🤖 IA creada para ayudarte, no para invadir</li>
-            </ul>
-        </section>
-
-        <!-- FOOTER CTA -->
-        <section class="footer-cta">
-            <h2>¿Listo para una forma más inteligente de manejar tu dinero?</h2>
-            <a href="billetera/billetera.html" class="cta-btn">Crear cuenta gratis</a>
-        </section>
-
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">🍯 Honey Money</div>
+      <div class="nav-links">
+        <a href="#" onclick="mostrarSeccion('home'); return false;">Home</a>
+        <a href="#" onclick="mostrarSeccion('galeria'); return false;">Galería</a>
+        <a href="#" onclick="mostrarSeccion('foro'); return false;">Comunidad</a>
+        <a href="#" onclick="mostrarSeccion('operaciones'); return false;">Operaciones</a>
+        <a href="#" onclick="mostrarSeccion('contacto'); return false;">Contacto</a>
+        <button class="nav-login-btn" id="navLoginBtn" onclick="mostrarSeccion('login'); return false;">Iniciar Sesión</button>
+        <button class="nav-logout-btn" id="navLogoutBtn" onclick="salir(); return false;" style="display: none;">Cerrar Sesión</button>
+      </div>
+      <button class="nav-toggle" onclick="toggleMenu()">☰</button>
     </div>
+  </nav>
+
+  <!-- SECCIÓN 1: HOME -->
+  <section id="seccion-home" class="seccion activa">
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">🍯 Bienvenido a Honey Money</h1>
+        <p class="hero-subtitle">La forma más dulce y simple de gestionar tu dinero</p>
+        <p class="hero-description">Honey Money es tu asistente financiero inteligente. Controla tus gastos, ahorra con facilidad y alcanza tus metas económicas de forma natural y sin complicaciones.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="mostrarSeccion('login')">Comenzar Ahora</button>
+          <button class="btn-secondary" onclick="mostrarSeccion('galeria')">Conocer Más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <h2 class="section-title">¿Por qué elegir Honey Money?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Control Total</h3>
+          <p>Gestiona tu dinero de forma inteligente con herramientas diseñadas para ti</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏦</div>
+          <h3>Ahorro Seguro</h3>
+          <p>Caja de ahorro personal para guardar y hacer crecer tu dinero</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💵</div>
+          <h3>Conversión de Moneda</h3>
+          <p>Convierte tus pesos a dólares con un solo clic</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Historial Completo</h3>
+          <p>Revisa todas tus operaciones y mantén control de tus finanzas</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Seguridad</h3>
+          <p>Tus datos protegidos con encriptación de nivel bancario</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3>Modo Oscuro</h3>
+          <p>Interfaz adaptable para cualquier momento del día</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: GALERÍA -->
+  <section id="seccion-galeria" class="seccion">
+    <div class="container">
+      <h2 class="section-title">Galería de Características</h2>
+      <p class="section-subtitle">Descubre todo lo que puedes hacer con Honey Money</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">💳</div>
+          </div>
+          <h3>Transferencias Rápidas</h3>
+          <p>Envía dinero a otros usuarios de forma instantánea y segura</p>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">📈</div>
+          </div>
+          <h3>Panel de Control</h3>
+          <p>Visualiza tu saldo y movimientos en tiempo real</p>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">💼</div>
+          </div>
+          <h3>Gestión Profesional</h3>
+          <p>Herramientas diseñadas para simplificar tus finanzas</p>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">🎯</div>
+          </div>
+          <h3>Metas de Ahorro</h3>
+          <p>Define objetivos y alcánzalos con nuestra caja de ahorro</p>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">📱</div>
+          </div>
+          <h3>Responsive Design</h3>
+          <p>Accede desde cualquier dispositivo, en cualquier lugar</p>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <div class="gallery-placeholder">⚡</div>
+          </div>
+          <h3>Rápido y Eficiente</h3>
+          <p>Operaciones instantáneas sin complicaciones</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: FORO/COMUNIDAD -->
+  <section id="seccion-foro" class="seccion">
+    <div class="container">
+      <h2 class="section-title">Comunidad Honey Money</h2>
+      <p class="section-subtitle">Únete a nuestra comunidad de usuarios inteligentes</p>
+      
+      <div class="forum-container">
+        <div class="forum-stats">
+          <div class="stat-card">
+            <div class="stat-number">1,234</div>
+            <div class="stat-label">Usuarios Activos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$2.5M</div>
+            <div class="stat-label">Total Gestionado</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">15K</div>
+            <div class="stat-label">Transacciones</div>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <h3>Lo que dicen nuestros usuarios</h3>
+          <div class="testimonial-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                "Honey Money transformó la forma en que manejo mi dinero. Simple, rápido y efectivo."
+              </div>
+              <div class="testimonial-author">- María González</div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                "La mejor app de gestión financiera que he usado. El diseño es increíble."
+              </div>
+              <div class="testimonial-author">- Juan Pérez</div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                "Me encanta la facilidad para ahorrar y controlar mis gastos. ¡Muy recomendable!"
+              </div>
+              <div class="testimonial-author">- Ana Martínez</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="community-cta">
+          <h3>¿Listo para unirte?</h3>
+          <p>Comienza hoy y forma parte de la comunidad más dulce 🍯</p>
+          <button class="btn-primary" onclick="mostrarSeccion('login')">Crear Cuenta Gratis</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: LOGIN -->
+  <section id="seccion-login" class="seccion">
+    <div class="login-container">
+      <div id="login">
+        <h3>Acceder a tu Cuenta</h3>
+        <p class="login-subtitle">Ingresa tu nombre de usuario para continuar</p>
+        <input id="nombre" placeholder="Tu nombre de usuario">
+        <button onclick="entrar()">Ingresar</button>
+        <p class="login-footer">¿No tienes cuenta? Se creará automáticamente al ingresar</p>
+        <div id="login-feedback" style="min-height:1.5em;font-size:1em;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: OPERACIONES (Panel Principal) -->
+  <section id="seccion-operaciones" class="seccion">
+    <div id="panel">
+      <div class="user-info">
+        <h2 class="user-name" id="usuario"></h2>
+        <button class="mode-toggle secondary" id="toggleDarkMode" onclick="cambiarModo()">🌙 Modo Oscuro</button>
+      </div>
+
+      <div class="saldo-card">
+        <div class="saldo-label">Saldo disponible</div>
+        <div class="saldo-amount">$<span id="saldo">0</span></div>
+        
+        <div class="balance-grid">
+          <div class="balance-item">
+            <div class="balance-item-label">Caja de ahorro</div>
+            <div class="balance-item-value">$<span id="cajaMonto">0</span></div>
+          </div>
+          <div class="balance-item">
+            <div class="balance-item-label">Dólares</div>
+            <div class="balance-item-value">USD <span id="dolares">0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="page-title">¿Qué querés hacer hoy?</h2>
+
+      <!-- Grid de Acciones Rápidas -->
+      <div class="quick-actions-grid">
+        <div class="quick-action-card" onclick="toggleAccion('depositar')">
+          <div class="quick-action-icon">💰</div>
+          <div class="quick-action-title">Depositar</div>
+          <div class="quick-action-subtitle">Agregar dinero</div>
+        </div>
+
+        <div class="quick-action-card" onclick="toggleAccion('transferir')">
+          <div class="quick-action-icon">💸</div>
+          <div class="quick-action-title">Transferir</div>
+          <div class="quick-action-subtitle">Enviar dinero</div>
+        </div>
+
+        <div class="quick-action-card" onclick="toggleAccion('convertir')">
+          <div class="quick-action-icon">💵</div>
+          <div class="quick-action-title">Dólares</div>
+          <div class="quick-action-subtitle">Convertir ARS</div>
+        </div>
+
+        <div class="quick-action-card" onclick="toggleAccion('caja')">
+          <div class="quick-action-icon">🏦</div>
+          <div class="quick-action-title">Caja</div>
+          <div class="quick-action-subtitle">Ahorrar dinero</div>
+        </div>
+      </div>
+
+      <!-- Modales/Desplegables de Operaciones -->
+      <div id="modal-depositar" class="operation-modal">
+        <div class="operation-modal-content">
+          <div class="operation-header">
+            <h3>💰 Depositar dinero</h3>
+            <button class="close-modal" onclick="cerrarModal('depositar')">✕</button>
+          </div>
+          <div class="operation-body">
+            <label>Monto a depositar</label>
+            <input id="montoDeposito" type="number" placeholder="Ingresá el monto">
+            <button onclick="depositar()">Confirmar Depósito</button>
+            <div id="depositar-feedback" style="min-height:1.5em;font-size:1em;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-transferir" class="operation-modal">
+        <div class="operation-modal-content">
+          <div class="operation-header">
+            <h3>💸 Transferir dinero</h3>
+            <button class="close-modal" onclick="cerrarModal('transferir')">✕</button>
+          </div>
+          <div class="operation-body">
+            <label>Destinatario</label>
+            <input id="receptor" placeholder="Nombre del receptor">
+            <label>Monto</label>
+            <input id="monto" type="number" placeholder="Ingresá el monto">
+            <button onclick="transferir()">Confirmar Transferencia</button>
+            <div id="transferir-feedback" style="min-height:1.5em;font-size:1em;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-convertir" class="operation-modal">
+        <div class="operation-modal-content">
+          <div class="operation-header">
+            <h3>💵 Convertir a dólares</h3>
+            <button class="close-modal" onclick="cerrarModal('convertir')">✕</button>
+          </div>
+          <div class="operation-body">
+            <label>Monto en ARS</label>
+            <input id="montoUSD" type="number" placeholder="Pesos a convertir">
+            <p class="conversion-info">Cotización: $1000 ARS = 1 USD</p>
+            <button onclick="convertirADolares()">Convertir</button>
+            <p id="resultadoUSD" class="conversion-result"></p>
+            <div id="convertir-feedback" style="min-height:1.5em;font-size:1em;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-caja" class="operation-modal">
+        <div class="operation-modal-content">
+          <div class="operation-header">
+            <h3>🏦 Caja de ahorro</h3>
+            <button class="close-modal" onclick="cerrarModal('caja')">✕</button>
+          </div>
+          <div class="operation-body">
+            <div class="tabs">
+              <button class="tab-btn active" onclick="cambiarTab('guardar')">Guardar</button>
+              <button class="tab-btn" onclick="cambiarTab('retirar')">Retirar</button>
+            </div>
+            
+            <div id="tab-guardar" class="tab-content active">
+              <label>Monto a guardar</label>
+              <input id="montoCaja" type="number" placeholder="Ingresá el monto">
+              <button onclick="guardarEnCaja()">Guardar en Caja</button>
+              <div id="caja-feedback" style="min-height:1.5em;font-size:1em;"></div>
+            </div>
+            
+            <div id="tab-retirar" class="tab-content">
+              <label>Monto a retirar</label>
+              <input id="montoRetiroCaja" type="number" placeholder="Ingresá el monto">
+              <button class="secondary" onclick="retirarDeCaja()">Retirar de Caja</button>
+              <div id="caja-feedback" style="min-height:1.5em;font-size:1em;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historial -->
+      <h2 class="page-title" style="margin-top: 3rem;">Tu actividad</h2>
+
+      <div class="historial-controls">
+        <label for="filtroTipo">Filtrar por:</label>
+        <select id="filtroTipo">
+          <option value="todo">Todos los movimientos</option>
+          <option value="transferencia">Transferencias</option>
+          <option value="deposito">Depósitos</option>
+        </select>
+      </div>
+
+      <div class="historial-table-container">
+        <table id="historialTable">
+          <thead>
+            <tr>
+              <th>Emisor</th>
+              <th>Receptor</th>
+              <th>Monto</th>
+              <th>Tipo</th>
+              <th>Dirección</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="historialBody"></tbody>
+        </table>
+      </div>
+
+      <div class="danger-zone">
+        <h3>Zona de Peligro</h3>
+        <p>Esta acción es irreversible</p>
+        <button class="danger" onclick="eliminarCuenta()">Eliminar Cuenta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 6: CONTACTO -->
+  <section id="seccion-contacto" class="seccion">
+    <div class="container">
+      <h2 class="section-title">Contáctanos</h2>
+      <p class="section-subtitle">Estamos aquí para ayudarte</p>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <h4>Email</h4>
+              <p>soporte@honeymoney.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <h4>Teléfono</h4>
+              <p>+54 11 1234-5678</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Dirección</h4>
+              <p>Buenos Aires, Argentina</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">⏰</div>
+            <div>
+              <h4>Horario</h4>
+              <p>Lunes a Viernes: 9:00 - 18:00</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Envíanos un mensaje</h3>
+          <form onsubmit="enviarMensaje(event)">
+            <input type="text" placeholder="Tu nombre" required>
+            <input type="email" placeholder="Tu email" required>
+            <input type="text" placeholder="Asunto" required>
+            <textarea placeholder="Tu mensaje" rows="5" required></textarea>
+            <button type="submit" class="btn-primary">Enviar Mensaje</button>
+            <div id="mensaje-contacto-feedback" style="min-height:1.5em;font-size:1em;"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>🍯 Honey Money</h4>
+        <p>La forma más inteligente de gestionar tu dinero</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces Rápidos</h4>
+        <a href="#" onclick="mostrarSeccion('home'); return false;">Home</a>
+        <a href="#" onclick="mostrarSeccion('galeria'); return false;">Galería</a>
+        <a href="#" onclick="mostrarSeccion('operaciones'); return false;">Operaciones</a>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Aviso Legal</a>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">Twitter</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Honey Money. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
