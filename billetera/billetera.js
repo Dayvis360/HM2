@@ -384,9 +384,7 @@ async function eliminarCuenta() {
   salir();
 }
 
-// Restaurar sesión
-const guardado = localStorage.getItem('usuario');
-if (guardado) { usuarioActual = guardado; mostrarPanel(); }
+localStorage.removeItem('usuario'); // Solo para pruebas
 
 
 

@@ -1,32 +1,7 @@
-/* Todas las pantallas apagadas */
-.pantalla {
-  display: none;
-}
+.pantalla { display: none; }
+.pantalla.activa { display: flex; }
 
-/* Solo la activa se ve */
-.pantalla.activa {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pantalla-login { display: flex; } /* Siempre visible al inicio */
 
 
 
