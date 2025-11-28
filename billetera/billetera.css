@@ -1,6 +1,34 @@
-#app-section {
+/* Todas las pantallas apagadas */
+.pantalla {
   display: none;
 }
+
+/* Solo la activa se ve */
+.pantalla.activa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .dark-mode {
   background: #1e1e1e !important;
@@ -95,7 +123,7 @@ h2, h3 { margin-bottom: 0.8rem; }
   transition: 0.25s ease;
 }
 
-#panel { display: none; }
+
 
 #login:hover,
 #panel:hover {
@@ -231,20 +259,9 @@ tbody tr:nth-child(even) {
   table { min-width: 420px; }
 }
 
-/* ================================
-   CONTROL DE PANTALLAS / FLUJO
-================================ */
 
-.pantalla {
-  display: none;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
 
-.pantalla.activa {
-  display: flex;
-}
+
 
 /* Contenedor general para que todo quede centrado */
 body {
@@ -252,17 +269,11 @@ body {
 }
 
 /* Ajuste visual para secciones */
-#pantalla-login,
-#pantalla-principal,
-#pantalla-operaciones,
-#pantalla-historial {
-  margin-top: 1.5rem;
-}
 
-/* Pequeña transición elegante, clásica pero premium */
-.pantalla {
-  animation: aparecer 0.3s ease;
-}
+
+
+
+
 
 @keyframes aparecer {
   from {
@@ -274,3 +285,4 @@ body {
     transform: translateY(0);
   }
 }
+
